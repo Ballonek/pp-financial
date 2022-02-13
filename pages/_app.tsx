@@ -14,10 +14,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  CircularProgress,
 } from '@mui/material';
 import { QueryClientProvider, QueryClient } from 'react-query';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import MailIcon from '@mui/icons-material/Mail';
 
@@ -75,7 +76,8 @@ const drawerWidth = 240;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
-  const { pathname } = useRouter();
+  const [loading, setLoading] = useState(false);
+  const { pathname } = router;
 
   const isAdmin = useMemo(() => {
     if (pathname === '/') {
@@ -94,10 +96,42 @@ function MyApp({ Component, pageProps }: AppProps) {
     return false;
   }, [pathname]);
 
-  console.log(isAdmin);
+  useEffect(() => {
+    const handleStart = (url: string) => (url !== router.pathname ? setLoading(true) : setLoading(false));
+
+    const handleComplete = () => setLoading(false);
+
+    router.events.on('routeChangeStart', handleStart);
+    router.events.on('routeChangeComplete', handleComplete);
+    router.events.on('routeChangeError', handleComplete);
+
+    return () => {
+      router.events.off('routeChangeStart', handleStart);
+      router.events.off('routeChangeComplete', handleComplete);
+      router.events.off('routeChangeError', handleComplete);
+    };
+  }, [router]);
   return (
     <QueryClientProvider client={client}>
       <ThemeProvider theme={theme}>
+        {loading && (
+          <div
+            style={{
+              backgroundColor: 'rgba(255,255,255, 0.6)',
+              width: '100%',
+              height: '100vh',
+              position: 'absolute',
+              zIndex: 100000,
+              left: 0,
+              top: 0,
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <CircularProgress />
+          </div>
+        )}
         {isAdmin ? (
           <>
             <AppBar position='fixed' sx={{ width: `100%`, zIndex: 10 }}>
