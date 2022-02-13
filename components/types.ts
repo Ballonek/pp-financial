@@ -5,11 +5,11 @@ export enum QuestionType {
 }
 
 export type Answer = {
-  id: number;
+  id: string;
   text: string;
 };
 export interface Question {
-  id: number;
+  id: string;
   order: number;
   text: string;
   type: QuestionType;

@@ -1,0 +1,8 @@
+{
+  "user": {
+    "email": "admin@ppfinancial.cz",
+    "password": "$2b$10$AhulvIZQe2okBjNx9zLxTebaVnETERXM0nfQgcWm1k7iT63VH9u5u",
+    "id": "f750218d-6524-49bb-8b7c-82cf2906d7cb",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImY3NTAyMThkLTY1MjQtNDliYi04YjdjLTgyY2YyOTA2ZDdjYiIsImlhdCI6MTY0NDc1ODgxOH0.y7ZlpJIDTs1qC2I8GmOb3kuaRhZtNE7_fGpYeqdFOVA"
+  }
+}
