@@ -54,7 +54,10 @@ export const longTextCss = css`
 `;
 export const inputCss = css`
   input {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  input:focus {
+    background-color: rgba(255, 255, 255, 1);
   }
   p {
     margin: 0;

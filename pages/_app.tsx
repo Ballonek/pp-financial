@@ -21,6 +21,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import MailIcon from '@mui/icons-material/Mail';
+import Head from 'next/head';
 
 const client = new QueryClient();
 
@@ -32,15 +33,18 @@ const theme = createTheme({
       dark: '#333333',
     },
   },
+  typography: {
+    fontFamily: 'AreplosPro',
+  },
   components: {
     MuiButton: {
       styleOverrides: {
-        contained: { fontWeight: 'bold' },
+        contained: { fontWeight: 'bold', fontFamily: 'AreplosPro' },
         outlined: {
           fontWeight: 'bold',
           fontSize: 20,
-          borderWidth: 2,
           backgroundColor: 'rgba(255,255,255, 0.8)',
+          borderWidth: 2,
           ':hover': {
             backgroundColor: 'rgba(255,255,255, 1)',
             borderWidth: 2,
@@ -51,9 +55,15 @@ const theme = createTheme({
     MuiOutlinedInput: {
       styleOverrides: {
         multiline: {
-          backgroundColor: 'white',
+          backgroundColor: 'rgba(255,255,255, 0.8)',
           minHeight: 150,
           paddingRight: 14,
+          ':hover': {
+            backgroundColor: 'rgba(255,255,255, 1)',
+          },
+          ':focus-within': {
+            backgroundColor: 'rgba(255,255,255, 1)',
+          },
         },
         root: {
           height: 50,
@@ -113,6 +123,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router]);
   return (
     <QueryClientProvider client={client}>
+      <Head>
+        <title>PP Financial</title>
+        <meta name='description' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
       <ThemeProvider theme={theme}>
         {loading && (
           <div

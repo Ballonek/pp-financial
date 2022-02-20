@@ -1,9 +1,20 @@
+@font-face {
+  font-family: AreplosPro;
+  src: url(../public/fonts/AreplosBookPro-Bold.woff);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: AreplosPro;
+  src: url(../public/fonts/AreplosBookPro.woff);
+  font-weight: normal;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: AreplosPro;
 }
 
 a {
@@ -12,5 +23,6 @@ a {
 }
 
 * {
+  font-family: AreplosPro;
   box-sizing: border-box;
 }
