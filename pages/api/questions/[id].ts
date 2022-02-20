@@ -4,8 +4,11 @@ import { Question } from '../../../components/types';
 import Questions from '../../../api/models/question';
 import { isAuth } from '../admin';
 import { v4 as uuidv4 } from 'uuid';
+import dbConnect from '../../../api/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await dbConnect();
+
   switch (req.method) {
     case 'GET':
       try {

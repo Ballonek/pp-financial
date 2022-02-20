@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Cookies from 'cookies';
 import { axiosInstance } from '../../../code/constants';
 import jscookie from 'js-cookie';
-import { Grid, Typography } from '@mui/material';
+import { Button, CircularProgress, Grid, Input, Typography } from '@mui/material';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ChangeEvent, useState } from 'react';
 import { useMutation } from 'react-query';
@@ -13,7 +13,8 @@ import { useRouter } from 'next/router';
 
 const Dashboard: NextPage = () => {
   const router = useRouter();
-  const { mutate } = useMutation(postBackgroundImage);
+  const [img, setImg] = useState(`${process.env.NEXT_PUBLIC_API}/dashboard/backgroundImg`);
+  const { mutate, isLoading } = useMutation(postBackgroundImage);
 
   const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target?.files && e.target.files[0]) {
@@ -39,12 +40,21 @@ const Dashboard: NextPage = () => {
       </Head>
       <Typography>Admin dashboard</Typography>
       <Grid>
-        <div>
-          <label htmlFor='backgroundImg'></label>
-          <input id='backgroundImg' type='file' accept='image/*' onChange={onImageChange} />
-        </div>
+        <label htmlFor='contained-button-file'>
+          <input accept='image/*' id='contained-button-file' type='file' onChange={onImageChange} style={{ display: 'none' }} />
+          <Button variant='contained' component='span' disabled={isLoading}>
+            {isLoading ? <CircularProgress size={20} /> : 'Vyměnit obrázek pozadí'}
+          </Button>
+        </label>
       </Grid>
-      <div style={{ backgroundImage: `url(/api/dashboard/backgroundImg)`, backgroundSize: 'cover', height: 300, width: 500 }} />
+      <div
+        style={{
+          backgroundImage: `url(${img})`,
+          backgroundSize: 'cover',
+          height: 300,
+          width: 500,
+        }}
+      />
     </>
   );
 };

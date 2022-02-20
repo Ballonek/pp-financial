@@ -5,6 +5,7 @@ import Dashboard from '../../../api/models/dashboard';
 import { readAsync } from 'fs-jetpack';
 import { readFileSync } from 'fs';
 import { getFileStream, uploadToAws } from '../../../api/aws';
+import dbConnect from '../../../api/db';
 
 export const config = {
   api: {
@@ -13,6 +14,7 @@ export const config = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await dbConnect();
   switch (req.method) {
     case 'GET': {
       try {
