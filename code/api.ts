@@ -24,3 +24,12 @@ export const deleteQuestion = async (data: { id: string; token: string }) =>
   await axiosInstance.delete<{ questions: Question[] }>(`questions/${data.id}`, {
     headers: { Authorization: `Bearer ${data.token}` },
   });
+
+export const postBackgroundImage = async (data: { token: string; img: File }) => {
+  const formData = new FormData();
+  formData.append('backgroundImg', data.img);
+
+  return await axiosInstance.post('dashboard/backgroundImg', formData, {
+    headers: { Authorization: `Bearer ${data.token}`, 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
+  });
+};
