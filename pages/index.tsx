@@ -28,8 +28,7 @@ type HomeServerProps = {
 };
 
 const layout = {
-  welcomeText:
-    'Průměrní lidé všechno začnou, ale nic nedokončí. Pokud se rozhodnete test začít, ale nedokončíte jej, tak Vám to dává zrcadlo, že věci nedotahujete do konce.',
+  welcomeText: 'Průměrní lidé všechno začnou, ale nic nedokončí.',
 };
 
 const Home: NextPage<HomeServerProps> = ({ questions }) => {
@@ -53,7 +52,7 @@ const Home: NextPage<HomeServerProps> = ({ questions }) => {
                 </div>
                 <div>
                   <Button onClick={() => setIsStarted(true)} className={styles.welcomeBtn} variant='contained'>
-                    Spusť test
+                    Začni
                   </Button>
                 </div>
               </>

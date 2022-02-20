@@ -7,10 +7,12 @@ export const QuestionsContext = createContext<{
   activeQuestion: number;
   nextActiveQuestion: (answer: string) => void;
   questionsData: Question[];
+  back: () => void;
 }>({
   activeQuestion: 0,
   nextActiveQuestion: (answer) => {},
   questionsData: [],
+  back: () => {},
 });
 
 export const useQuestionsManager = (questions: Question[]) => {
@@ -31,7 +33,13 @@ export const useQuestionsManager = (questions: Question[]) => {
     [activeQuestion, questions.length, router]
   );
 
-  return { activeQuestion, nextActiveQuestion, questionsData: questions, answers };
+  const back = useCallback(() => {
+    if (activeQuestion > 1) {
+      setActiveQuestion((prev) => (prev -= 1));
+    }
+  }, [activeQuestion]);
+
+  return { activeQuestion, nextActiveQuestion, questionsData: questions, answers, back };
 };
 
 export const QuestionsProvider: FC<QuestionsProviderProps> = ({ children, questions }) => {

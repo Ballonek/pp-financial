@@ -83,3 +83,17 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.thankYou {
+  width: 700px;
+  min-width: 400px;
+  min-height: 400px;
+  background-color: white;
+}
+
+.welcomeThank {
+  margin-top: -200px;
+  max-width: 40%;
+  color: #031c48;
+  z-index: 2;
+}

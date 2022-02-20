@@ -1,4 +1,6 @@
 /** @jsxImportSource @emotion/react */
+import { ArrowBack, BackspaceOutlined } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import { FC } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useQuestions } from '../hooks/useQuestions';
@@ -8,10 +10,17 @@ import { QuestionsProps } from './types';
 
 export const Questions: FC<QuestionsProps> = () => {
   const form = useForm();
-  const { questionsData: questions } = useQuestions();
+  const { questionsData: questions, back, activeQuestion } = useQuestions();
 
   return (
     <FormProvider {...form}>
+      {activeQuestion > 1 && (
+        <IconButton sx={{ position: 'absolute', left: 20, zIndex: 1000, top: 20 }} color='primary'>
+          <ArrowBack onClick={back} fontSize='large'>
+            back
+          </ArrowBack>
+        </IconButton>
+      )}
       <div css={questionsContainerCss}>
         {questions.length > 0 &&
           questions.map((question, index) => <Question key={index} question={question} questionIndex={index} />)}
