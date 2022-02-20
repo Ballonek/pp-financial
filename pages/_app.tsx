@@ -22,7 +22,7 @@ import { useEffect, useMemo, useState } from 'react';
 import styles from '../styles/Home.module.css';
 import MailIcon from '@mui/icons-material/Mail';
 import Head from 'next/head';
-import { Dashboard } from '@mui/icons-material';
+import { Dashboard, LiveHelp } from '@mui/icons-material';
 
 const client = new QueryClient();
 
@@ -186,6 +186,12 @@ function MyApp({ Component, pageProps }: AppProps) {
                       <MailIcon />
                     </ListItemIcon>
                     <ListItemText primary='Dozazník' />
+                  </ListItem>
+                  <ListItem button onClick={() => router.push('/admin/dashboard/answers')}>
+                    <ListItemIcon>
+                      <LiveHelp />
+                    </ListItemIcon>
+                    <ListItemText primary='Odpovědi' />
                   </ListItem>
                 </List>
               </Drawer>

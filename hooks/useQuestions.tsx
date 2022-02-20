@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { createContext, FC, useCallback, useContext, useState } from 'react';
+import { useMutation } from 'react-query';
+import { postAnswers } from '../code/api';
 import { Question } from '../components/types';
 import { QuestionsProviderProps } from './types';
 
@@ -16,6 +18,7 @@ export const QuestionsContext = createContext<{
 });
 
 export const useQuestionsManager = (questions: Question[]) => {
+  const { mutate } = useMutation(postAnswers);
   const router = useRouter();
   const [activeQuestion, setActiveQuestion] = useState(1);
   const [answers, setAnswers] = useState<string[]>([]);
@@ -26,11 +29,21 @@ export const useQuestionsManager = (questions: Question[]) => {
         setActiveQuestion((prev) => prev + 1);
         setAnswers((previousAnswers) => [...previousAnswers, answer]);
       } else {
-        setAnswers((previousAnswers) => [...previousAnswers, answer]);
-        router.push('/dekujeme');
+        setAnswers((previousAnswers) => {
+          const newAnswers = [...previousAnswers, answer];
+          mutate(
+            { answers: [...previousAnswers, answer] },
+            {
+              onSuccess: () => {
+                router.push('/dekujeme');
+              },
+            }
+          );
+          return newAnswers;
+        });
       }
     },
-    [activeQuestion, questions.length, router]
+    [activeQuestion, mutate, questions.length, router]
   );
 
   const back = useCallback(() => {

@@ -33,3 +33,9 @@ export const postBackgroundImage = async (data: { token: string; img: File }) =>
     headers: { Authorization: `Bearer ${data.token}`, 'Content-Type': 'multipart/form-data', Accept: 'application/json' },
   });
 };
+
+export const postAnswers = async (data: { answers: any }) => await axiosInstance.post('answers', data.answers);
+export const getAnswers = async (data: { token: string }) =>
+  await axiosInstance.get('answers', {
+    headers: { Authorization: `Bearer ${data.token}` },
+  });

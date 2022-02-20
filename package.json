@@ -18,6 +18,7 @@
     "bcrypt": "^5.0.1",
     "cookie-cutter": "^0.2.0",
     "cookies": "^0.8.0",
+    "date-fns": "^2.28.0",
     "formidable": "^2.0.1",
     "fs-jetpack": "^4.3.1",
     "immutability-helper": "^3.1.1",
