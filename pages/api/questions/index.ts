@@ -1,8 +1,9 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { writeAsync, readAsync } from 'fs-jetpack';
 import { Question, QuestionType } from '../../../components/types';
 import { isAuth } from '../admin';
+import dbConnect from '../../../api/db';
+import Questions from '../../../api/models/question';
 
 export const qQuestions: Question[] = [
   {
@@ -54,12 +55,14 @@ export const qQuestions: Question[] = [
 ];
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  await dbConnect();
+
   switch (req.method) {
     case 'GET':
       try {
-        const JSONdata = await readAsync('data/questions.json', 'json');
+        const questionsArray = await Questions.find();
 
-        return res.status(200).json({ questions: JSONdata.questions });
+        return res.status(200).json({ questions: questionsArray[0].questions });
       } catch (error) {
         return res.status(200).json({ questions: [] });
       }
@@ -86,13 +89,15 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const questions: Question[] = req.body;
 
+        const questionsArray = await Questions.find();
+
         const newQuestions = questions.map((question, idx) => ({ ...question, order: idx + 1 }));
 
-        await writeAsync('data/questions.json', JSON.stringify({ questions: newQuestions }));
+        await Questions.findByIdAndUpdate(questionsArray[0].id, { questions: newQuestions });
 
-        const JSONdata = await readAsync('data/questions.json', 'json');
+        const updatedQuestions = await Questions.find();
 
-        return res.status(200).json({ questions: JSONdata.questions });
+        return res.status(200).json({ questions: updatedQuestions[0].questions });
       } catch (error) {
         return res.status(500).json({
           error: { message: 'Something went wrong' },

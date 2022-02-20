@@ -94,6 +94,7 @@ export const QuestionCard: FC<CardProps> = ({ id, text, index, moveCard, onRemov
       // Generally it's better to avoid mutations,
       // but it's good here for the sake of performance
       // to avoid expensive index searches.
+
       item.index = hoverIndex;
     },
   });
@@ -128,29 +129,22 @@ export const QuestionCard: FC<CardProps> = ({ id, text, index, moveCard, onRemov
 };
 
 export const Questionnaire: FC<{ questions: Question[] }> = ({ questions }) => {
+  console.log({ questions });
   const { isLoading: isMutationLoading, mutate } = useMutation(postQuestions);
-  const [cards, setCards] = useState<Question[]>([]);
+  const [cards, setCards] = useState<Question[]>(questions);
   const router = useRouter();
-  const { data, refetch, isLoading } = useQuery('questions', getQuestions, {
-    enabled: false,
-    initialData: { questions },
-    keepPreviousData: false,
-  });
   const { mutate: removeQuestion } = useMutation(deleteQuestion);
 
-  const onRemove = (id: string) => removeQuestion({ id, token: jscookie.get('token')! }, { onSuccess: () => refetch() });
-
-  useEffect(() => {
-    refetch();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (data?.questions) {
-      setCards(data.questions);
-    }
-  }, [data?.questions]);
+  const onRemove = (id: string) =>
+    removeQuestion(
+      { id, token: jscookie.get('token')! },
+      {
+        onSuccess: ({ data }) => {
+          console.log({ data });
+          setCards(data.questions);
+        },
+      }
+    );
 
   const moveCard = useCallback((dragIndex, hoverIndex) => {
     setCards((prevCards) =>
@@ -164,7 +158,15 @@ export const Questionnaire: FC<{ questions: Question[] }> = ({ questions }) => {
   }, []);
 
   const reorder = () => {
-    mutate({ questions: cards, token: jscookies.get('token')! }, { onSuccess: ({ data }) => setCards(data.questions) });
+    mutate(
+      { questions: cards, token: jscookies.get('token')! },
+      {
+        onSuccess: ({ data }) => {
+          // console.log({ data });
+          setCards(data.questions);
+        },
+      }
+    );
   };
 
   return (
@@ -173,10 +175,10 @@ export const Questionnaire: FC<{ questions: Question[] }> = ({ questions }) => {
         <QuestionCard key={card.id} index={idx} id={card.id} text={card.text} moveCard={moveCard} onRemove={onRemove} />
       ))}
       <Button variant='contained' onClick={reorder} disabled={isMutationLoading}>
-        {isMutationLoading || isLoading ? <CircularProgress /> : 'Uložit pořadí'}
+        {isMutationLoading ? <CircularProgress /> : 'Uložit pořadí'}
       </Button>
       <Button sx={{ marginX: 2 }} variant='contained' onClick={() => router.push('questions/new')} disabled={isMutationLoading}>
-        {isMutationLoading || isLoading ? <CircularProgress /> : 'Vytvořit novou'}
+        {isMutationLoading ? <CircularProgress /> : 'Vytvořit novou'}
       </Button>
     </div>
   );

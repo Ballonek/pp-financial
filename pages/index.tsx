@@ -79,7 +79,6 @@ export const getServerSideProps = async () => {
       },
     };
   } catch (error) {
-    console.log(error);
     return {
       props: {
         questions: [],
