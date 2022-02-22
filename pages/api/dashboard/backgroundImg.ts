@@ -2,8 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { IncomingForm, Files, Fields } from 'formidable';
 import sharp from 'sharp';
 import Dashboard from '../../../api/models/dashboard';
-import { readAsync } from 'fs-jetpack';
-import { readFileSync } from 'fs';
+import { readAsync, writeAsync } from 'fs-jetpack';
+import { v4 as uuidv4 } from 'uuid';
 import { getFileStream, uploadToAws } from '../../../api/aws';
 import dbConnect from '../../../api/db';
 
@@ -46,13 +46,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         //@ts-ignore
         const backgroundImgToSend = body.files.backgroundImg;
 
+        const newFilename = uuidv4();
+        //@ts-ignore
+        await sharp(`data/${backgroundImgToSend.newFilename}`)
+          .resize({ width: 1920, fit: 'cover' })
+          .jpeg({ quality: 80 })
+          //@ts-ignore
+          .toFile(`data/${newFilename}`);
+
         const dashboards = await Dashboard.find({});
 
         const dashboard = dashboards[0];
 
         const imgKey = await uploadToAws(
           //@ts-ignore
-          `data/${backgroundImgToSend.newFilename}`,
+          `data/${newFilename}`,
           //@ts-ignore
           backgroundImgToSend.mimetype,
           'BackgroundImage',
