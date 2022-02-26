@@ -23,15 +23,19 @@ import styles from '../styles/Home.module.css';
 import MailIcon from '@mui/icons-material/Mail';
 import Head from 'next/head';
 import { Dashboard, LiveHelp } from '@mui/icons-material';
+import Image from 'next/image';
 
 const client = new QueryClient();
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#b99040',
+      main: '#2F2C27',
       contrastText: '#FFFFFF',
-      dark: '#333333',
+      dark: '#8A8D8F',
+    },
+    text: {
+      primary: '#2F2C27',
     },
   },
   typography: {
@@ -40,6 +44,7 @@ const theme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        root: { padding: '8px 25px', borderRadius: '2px' },
         contained: { fontWeight: 'bold', fontFamily: 'AreplosPro' },
         outlined: {
           fontWeight: 'bold',
@@ -130,6 +135,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <ThemeProvider theme={theme}>
+        <div className={styles.logoWrap}>
+          <Image src='/logo.svg' width={150} height={50} alt='logo' />
+        </div>
         {loading && (
           <div
             style={{
@@ -137,7 +145,7 @@ function MyApp({ Component, pageProps }: AppProps) {
               width: '100%',
               height: '100vh',
               position: 'absolute',
-              zIndex: 100000,
+              zIndex: 100,
               left: 0,
               top: 0,
               display: 'flex',
@@ -152,7 +160,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <>
             <AppBar position='fixed' sx={{ width: `100%`, zIndex: 10 }}>
               <Toolbar>
-                <Typography variant='h6' noWrap component='div'>
+                <Typography variant='h6' component='div'>
                   Admin
                 </Typography>
               </Toolbar>

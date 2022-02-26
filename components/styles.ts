@@ -20,6 +20,7 @@ export const questionCss = css`
   transition: all 500ms linear;
   flex-direction: column;
   z-index: 0;
+  padding: 0 10px;
 `;
 
 export const activeQuestionCss = css`
@@ -32,18 +33,37 @@ export const selectAnswersCss = css`
   display: flex;
   justify-content: space-around;
 `;
-export const openAnswersCss = css`
+export const scaleAnswersCss = css`
   min-width: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+`;
+export const openAnswersCss = css`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
+
+  button: {
+    background: red !important;
+  }
+
+  width: 400px;
+  @media only screen and (max-width: 480px) {
+    width: 90%;
+  }
 `;
 
 export const questionHeaderCss = css`
   h2  {
-    color: #031c48;
-    width: 600px;
+    color: #2f2c27;
+
     text-align: center;
+  }
+
+  width: 70%;
+  @media only screen and (max-width: 480px) {
+    width: 90%;
   }
 `;
 

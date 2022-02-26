@@ -9,6 +9,7 @@ import {
   questionHeaderCss,
   longTextCss,
   inputCss,
+  scaleAnswersCss,
 } from './styles';
 import { useQuestions } from '../hooks/useQuestions';
 import { QuestionProps, QuestionType } from './types';
@@ -43,27 +44,13 @@ export const Question: FC<QuestionProps> = ({ question, questionIndex }) => {
             </div>
             <div css={openAnswersCss}>
               {question?.answerType === 'number' && (
-                <AppInput name={`value-${question.id}`} variant='outlined' type='number' css={inputCss} />
+                <AppInput name={`value-${question.id}`} fullWidth variant='outlined' type='number' css={inputCss} />
               )}
               {question?.answerType === 'longString' && (
-                <AppInput
-                  variant='outlined'
-                  type='text'
-                  sx={{ width: 400 }}
-                  placeholder='Odpověď'
-                  multiline
-                  name={`value-${question.id}`}
-                />
+                <AppInput variant='outlined' type='text' fullWidth placeholder='Odpověď' multiline name={`value-${question.id}`} />
               )}
               {question?.answerType === 'string' && (
-                <AppInput
-                  variant='outlined'
-                  type='text'
-                  css={longTextCss}
-                  sx={{ width: 300 }}
-                  placeholder='Odpověď'
-                  name={`value-${question.id}`}
-                />
+                <AppInput variant='outlined' type='text' fullWidth css={longTextCss} placeholder='Odpověď' name={`value-${question.id}`} />
               )}
               <Button
                 variant='contained'
@@ -105,7 +92,7 @@ export const Question: FC<QuestionProps> = ({ question, questionIndex }) => {
             <div css={questionHeaderCss}>
               <h2>{question.text}</h2>
             </div>
-            <div css={selectAnswersCss}>
+            <div css={scaleAnswersCss}>
               {question?.scale &&
                 Array.from({ length: question.scale }, (_, i) => i + 1).map((value) => (
                   <Button

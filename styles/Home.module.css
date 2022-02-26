@@ -13,6 +13,7 @@
   align-items: center;
   background-color: black;
   flex-direction: column;
+  background-position-x: center;
 }
 
 .mainCover {
@@ -27,8 +28,7 @@
 }
 
 .welcome {
-  max-width: 40%;
-  color: #031c48;
+  color: #2f2c27;
   z-index: 2;
 }
 .welcomeText {
@@ -86,14 +86,30 @@
 
 .thankYou {
   width: 700px;
-  min-width: 400px;
-  min-height: 400px;
+  min-width: 500px;
+  min-height: 500px;
   background-color: white;
 }
 
+@media only screen and (max-width: 480px) {
+  .thankYou {
+    width: 100%;
+  }
+}
+
 .welcomeThank {
-  margin-top: -200px;
-  max-width: 40%;
-  color: #031c48;
+  color: #2f2c27;
   z-index: 2;
+}
+
+.logoWrap {
+  position: absolute;
+  z-index: 1000;
+  top: 10px;
+  display: flex;
+  justify-content: center;
+  margin: 0px auto;
+  left: 0;
+  right: 0;
+  max-width: 200px;
 }

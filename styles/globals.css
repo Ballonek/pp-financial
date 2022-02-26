@@ -10,6 +10,25 @@
   font-weight: normal;
 }
 
+#__next {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+:root {
+  font-size: 18px;
+}
+
+@media only screen and (max-width: 480px) {
+  :root {
+    font-size: 14px;
+  }
+  .MuiButton-root .MuiButton-outlined {
+    padding: 3px !important;
+  }
+}
+
 html,
 body {
   padding: 0;
