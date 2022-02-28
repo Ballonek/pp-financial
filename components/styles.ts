@@ -43,7 +43,7 @@ export const openAnswersCss = css`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
-
+  align-items: center;
   button: {
     background: red !important;
   }

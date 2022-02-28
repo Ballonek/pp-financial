@@ -47,10 +47,24 @@ export const Question: FC<QuestionProps> = ({ question, questionIndex }) => {
                 <AppInput name={`value-${question.id}`} fullWidth variant='outlined' type='number' css={inputCss} />
               )}
               {question?.answerType === 'longString' && (
-                <AppInput variant='outlined' type='text' fullWidth placeholder='Odpověď' multiline name={`value-${question.id}`} />
+                <AppInput
+                  variant='outlined'
+                  type='text'
+                  fullWidth
+                  placeholder='Odpověď'
+                  multiline
+                  name={`value-${question.id}`}
+                />
               )}
               {question?.answerType === 'string' && (
-                <AppInput variant='outlined' type='text' fullWidth css={longTextCss} placeholder='Odpověď' name={`value-${question.id}`} />
+                <AppInput
+                  variant='outlined'
+                  type='text'
+                  fullWidth
+                  css={[longTextCss, inputCss]}
+                  placeholder='Odpověď'
+                  name={`value-${question.id}`}
+                />
               )}
               <Button
                 variant='contained'
