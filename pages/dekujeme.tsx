@@ -20,17 +20,6 @@ const Dekujeme: NextPage = () => {
             <h2 className={styles.welcomeText}>Děkujeme za vyplnění testu</h2>
             <h4 className={styles.welcomeText}>Do 48 hodin se na test podíváme a v případě úspěchu se ozveme</h4>
           </div>
-          <div className={styles.thankYou}>
-            <iframe
-              style={{
-                boxShadow: 'none',
-                border: 'none',
-              }}
-              width='100%'
-              height='100%'
-              src='https://player.vimeo.com/video/624226239?autoplay=1'
-            />
-          </div>
         </div>
       </main>
     </div>
