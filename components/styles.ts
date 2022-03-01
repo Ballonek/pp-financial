@@ -32,21 +32,29 @@ export const selectAnswersCss = css`
   min-width: 200px;
   display: flex;
   justify-content: space-around;
+
+  @media only screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `;
+
 export const scaleAnswersCss = css`
-  min-width: 200px;
+  min-width: 300px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  @media only screen and (max-width: 480px) {
+    button {
+      padding: 3px 0;
+      margin: 2px;
+    }
+  }
 `;
 export const openAnswersCss = css`
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  button: {
-    background: red !important;
-  }
 
   width: 400px;
   @media only screen and (max-width: 480px) {
