@@ -26,6 +26,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.2",
     "next": "12.0.10",
+    "nextjs-cors": "^2.1.0",
     "react": "17.0.2",
     "react-dnd": "^15.1.1",
     "react-dnd-html5-backend": "^15.1.2",

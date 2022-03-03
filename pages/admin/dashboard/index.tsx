@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { AppInput } from '../../../components/AppInput';
 import { FormProps } from '../../../components/types';
+import { AxiosError } from 'axios';
 
 const Dashboard: NextPage<{ dashboard: FormProps }> = ({ dashboard }) => {
   const router = useRouter();
@@ -36,7 +37,15 @@ const Dashboard: NextPage<{ dashboard: FormProps }> = ({ dashboard }) => {
   };
 
   const onSubmit = (values: FormProps) => {
-    mutateForm({ token: jscookie.get('token')!, values });
+    mutateForm(
+      { token: jscookie.get('token')!, values },
+      {
+        onError: (error) => {
+          const err = error as AxiosError
+          console.log({ error: err.code});
+        },
+      }
+    );
   };
 
   return (
