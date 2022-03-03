@@ -24,3 +24,10 @@ export type QuestionProps = {
   question: Question;
   questionIndex: number;
 };
+
+export type FormProps = {
+  welcomeText: string;
+  thanksText: string;
+  thanksSubText: string;
+};
+

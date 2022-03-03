@@ -92,3 +92,9 @@ export const inputCss = css`
     background-color: transparent;
   }
 `;
+
+export const gdprCss = css`
+  &:hover {
+    color: #2f2c27c2;
+  }
+`;

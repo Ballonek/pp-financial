@@ -49,6 +49,19 @@
   top: 0;
 }
 
+.contentThank {
+  height: 100%;
+  max-width: 90%;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  left: 0;
+  top: 0;
+}
+
 .loginCard {
   padding: 30px;
   width: 400px;
@@ -87,14 +100,12 @@
 
 .thankYou {
   width: 700px;
-  min-width: 500px;
-  min-height: 500px;
   background-color: white;
 }
 
 @media only screen and (max-width: 480px) {
   .thankYou {
-    width: 100%;
+    width: 300px;
   }
 }
 
@@ -114,4 +125,12 @@
   left: 0;
   right: 0;
   max-width: 200px;
+}
+
+.mainThank {
+  height: 100vh;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

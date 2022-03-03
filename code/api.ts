@@ -1,4 +1,4 @@
-import { Question } from '../components/types';
+import { FormProps, Question } from '../components/types';
 import { axiosInstance } from './constants';
 
 export const getQuestions = async () => {
@@ -37,5 +37,12 @@ export const postBackgroundImage = async (data: { token: string; img: File }) =>
 export const postAnswers = async (data: { answers: any }) => await axiosInstance.post('answers', data.answers);
 export const getAnswers = async (data: { token: string }) =>
   await axiosInstance.get('answers', {
+    headers: { Authorization: `Bearer ${data.token}` },
+  });
+
+export const getDashboard = async () => await axiosInstance.get('dashboard');
+
+export const putDashboard = async (data: { token: string; values: FormProps }) =>
+  await axiosInstance.put('dashboard', data.values, {
     headers: { Authorization: `Bearer ${data.token}` },
   });
