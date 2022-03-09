@@ -7,7 +7,11 @@ import { v4 as uuidv4 } from 'uuid';
 import dbConnect from '../../../api/db';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (error) {
+    console.log(error);
+  }
 
   switch (req.method) {
     case 'GET':

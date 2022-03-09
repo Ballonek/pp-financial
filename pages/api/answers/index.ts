@@ -3,7 +3,11 @@ import dbConnect from '../../../api/db';
 import Answer from '../../../api/models/answer';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (error) {
+    console.log(error);
+  }
   switch (req.method) {
     case 'POST':
       const newAnswer = new Answer({ answers: req.body, createdAt: new Date() });

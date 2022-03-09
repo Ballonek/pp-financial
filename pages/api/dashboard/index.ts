@@ -10,7 +10,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     origin: '*',
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
   });
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (error) {
+    console.log(error);
+  }
   switch (req.method) {
     case 'GET': {
       try {

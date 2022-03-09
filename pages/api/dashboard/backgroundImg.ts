@@ -14,7 +14,11 @@ export const config = {
 };
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  await dbConnect();
+  try {
+    await dbConnect();
+  } catch (error) {
+    console.log(error);
+  }
   switch (req.method) {
     case 'GET': {
       try {
