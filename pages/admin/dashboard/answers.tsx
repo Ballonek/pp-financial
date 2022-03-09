@@ -3,15 +3,38 @@ import Head from 'next/head';
 import Cookies from 'cookies';
 import { axiosInstance } from '../../../code/constants';
 
-import { Grid, Typography, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import { getAnswers } from '../../../code/api';
+import { Grid, Typography, Accordion, AccordionSummary, AccordionDetails, IconButton } from '@mui/material';
+import { deleteAnswer, getAnswers } from '../../../code/api';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import styles from '../../../styles/Home.module.css';
 import { Create, Delete } from '@mui/icons-material';
 import { format, parseISO } from 'date-fns';
+import { useMutation, useQuery } from 'react-query';
+import jscookie from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 const Dashboard: NextPage<{ answers: any[] }> = ({ answers }) => {
-  console.log(answers);
+  const [ans, setAns] = useState<any[]>(answers);
+  const { refetch, isLoading, data } = useQuery('answers', () => getAnswers({ token: jscookie.get('token')! }), {
+    enabled: false,
+    // @ts-ignore
+    initialData: answers,
+  });
+  const { mutate, isLoading: mutLoading } = useMutation(deleteAnswer);
+  const onRemove = (id: string) => {
+    mutate({ id, token: jscookie.get('token')! }, { onSuccess: () => refetch() });
+  };
+
+  useEffect(() => {
+    if (data?.data) {
+      setAns(data.data);
+    }
+  }, [data]);
+
+  if (isLoading || mutLoading) {
+    return null;
+  }
+
   return (
     <>
       <Head>
@@ -21,14 +44,19 @@ const Dashboard: NextPage<{ answers: any[] }> = ({ answers }) => {
       </Head>
       <Typography>Odpovědi</Typography>
       <Grid marginTop={5}>
-        {!answers || !(answers.length > 0) ? (
+        {!ans || !(ans.length > 0) ? (
           <div>Zatím nemáte žádné Odpovědi</div>
         ) : (
           <div>
-            {answers.map((answ) => (
+            {ans.map((answ) => (
               <Accordion key={answ._id}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls='panel1a-content' id='panel1a-header'>
-                  <Typography>{format(new Date(answ.createdAt), 'd.M.yyyy')}</Typography>
+                  <Grid style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <Typography>{format(new Date(answ.createdAt), 'd.M.yyyy')}</Typography>
+                    <IconButton onClick={() => onRemove(answ._id)}>
+                      <Delete />
+                    </IconButton>
+                  </Grid>
                 </AccordionSummary>
                 <AccordionDetails>
                   {answ.answers.map((content: string) => (

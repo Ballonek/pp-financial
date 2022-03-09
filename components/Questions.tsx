@@ -10,7 +10,16 @@ import { QuestionsProps } from './types';
 
 export const Questions: FC<QuestionsProps> = () => {
   const form = useForm();
-  const { questionsData: questions, back, activeQuestion } = useQuestions();
+  const { questionsData: questions, back, activeQuestion, nextActiveQuestion } = useQuestions();
+
+  const submit = (v: string) => {
+    if (!form.getValues('gdpr')) {
+      console.log('No gdpr');
+      return;
+    }
+
+    nextActiveQuestion(v);
+  };
 
   return (
     <FormProvider {...form}>
@@ -21,10 +30,10 @@ export const Questions: FC<QuestionsProps> = () => {
           </ArrowBack>
         </IconButton>
       )}
-      <div css={questionsContainerCss}>
+      <form css={questionsContainerCss}>
         {questions.length > 0 &&
-          questions.map((question, index) => <Question key={index} question={question} questionIndex={index} />)}
-      </div>
+          questions.map((question, index) => <Question submit={submit} key={index} question={question} questionIndex={index} />)}
+      </form>
     </FormProvider>
   );
 };

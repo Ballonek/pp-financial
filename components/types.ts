@@ -1,3 +1,5 @@
+import { FieldValues, UseFormHandleSubmit } from 'react-hook-form';
+
 export enum QuestionType {
   OPEN = 'OPEN',
   SCALE = 'SCALE',
@@ -23,6 +25,7 @@ export type QuestionsProps = {};
 export type QuestionProps = {
   question: Question;
   questionIndex: number;
+  submit: (values: any) => void;
 };
 
 export type FormProps = {
@@ -30,4 +33,3 @@ export type FormProps = {
   thanksText: string;
   thanksSubText: string;
 };
-
