@@ -4,11 +4,11 @@ import path from 'path';
 import { v4 as uuid4 } from 'uuid';
 
 const s3Config = {
-  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY!,
-  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_KEY!,
-  region: process.env.NEXT_PUBLIC_AWS_REGION!,
+  accessKeyId: process.env.NEXT_PUBLIC_AWS_ACCESS_KEY || 'AKIA2NBTSPWJNN4LR6WH',
+  secretAccessKey: process.env.NEXT_PUBLIC_AWS_SECRET_KEY || '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',
+  region: process.env.NEXT_PUBLIC_AWS_REGION || 'eu-central-1',
   params: {
-    Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET!,
+    Bucket: process.env.NEXT_PUBLIC_AWS_BUCKET || 'ppfinancial-bucket',
   },
 };
 
