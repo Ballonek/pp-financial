@@ -22,6 +22,7 @@ export const uploadToAws = async (
 ): Promise<string | undefined> => {
   const fileContent = createReadStream(filePath);
 
+  console.log({ bucket: s3Config.params.Bucket });
   const params: S3.PutObjectRequest = {
     Bucket: s3Config.params.Bucket,
     Key: `${name}-${uuid4()}.${ext}`,
@@ -38,6 +39,7 @@ export const uploadToAws = async (
 };
 
 export const getFileStream = (fileKey: string) => {
+  console.log({ bucket: s3Config.params.Bucket });
   const downloadParams: S3.GetObjectRequest = {
     Key: fileKey,
     Bucket: s3Config.params.Bucket,
