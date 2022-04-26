@@ -3,7 +3,7 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 import { useState } from 'react';
 import { getDashboard, getQuestions } from '../code/api';
-import { axiosInstance, baseApiUrl, defaultDashboard } from '../code/constants';
+import { defaultDashboard } from '../code/constants';
 import { Questions } from '../components/Questions';
 import { FormProps, Question, QuestionType } from '../components/types';
 import { QuestionsProvider } from '../hooks/useQuestions';
