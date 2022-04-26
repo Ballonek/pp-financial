@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-export const baseApiUrl = process.env.NEXT_PUBLIC_API || 'http://localhost:3000/api';
-
-export const axiosInstance = axios.create({ baseURL: "/api" });
+export const axiosInstance = axios.create({ baseURL: `${process.env.NEXT_PUBLIC_API || ""}/api` });
 
 export const defaultDashboard = {
   welcomeText: 'Průměrní lidé všechno začnou, ale nic nedokončí.',
