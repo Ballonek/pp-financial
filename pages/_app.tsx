@@ -137,7 +137,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <ThemeProvider theme={theme}>
         <div className={styles.logoWrap}>
-          <Image src='/logo.svg' width={150} height={50} alt='logo' />
+          <img src='/logo.svg' width={150} height={50} alt='logo' />
         </div>
         {loading && (
           <div
