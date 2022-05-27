@@ -23,7 +23,7 @@ import styles from '../styles/Home.module.css';
 import MailIcon from '@mui/icons-material/Mail';
 import Head from 'next/head';
 import { Dashboard, LiveHelp } from '@mui/icons-material';
-import Image from 'next/image';
+import TagManager from 'react-gtm-module';
 
 const client = new QueryClient();
 
@@ -111,6 +111,10 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     return false;
   }, [pathname]);
+
+  useEffect(() => {
+    TagManager.initialize({ gtmId: 'GMT-KZ33HDD' });
+  }, []);
 
   useEffect(() => {
     const handleStart = (url: string) => (url !== router.pathname ? setLoading(true) : setLoading(false));
