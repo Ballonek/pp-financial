@@ -24,6 +24,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import Head from 'next/head';
 import { Dashboard, LiveHelp } from '@mui/icons-material';
 import TagManager from 'react-gtm-module';
+import Script from 'next/script';
 
 const client = new QueryClient();
 
@@ -113,10 +114,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [pathname]);
 
   useEffect(() => {
-    TagManager.initialize({ gtmId: 'GMT-KZ33HDD' });
-  }, []);
-
-  useEffect(() => {
     const handleStart = (url: string) => (url !== router.pathname ? setLoading(true) : setLoading(false));
 
     const handleComplete = () => setLoading(false);
@@ -139,6 +136,11 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         <link rel='icon' href='/favicon.ico' />
       </Head>
+      <Script id='gmt' strategy='afterInteractive'>{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KZ33HDD');`}</Script>
       <ThemeProvider theme={theme}>
         <div className={styles.logoWrap}>
           <img src='/logo.svg' width={150} height={50} alt='logo' />
