@@ -39,7 +39,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       console.log({ queryId });
 
       try {
-        await Answer.deleteOne({ id: queryId });
+        await Answer.deleteOne({ _id: queryId });
         return res.json({ ok: true });
       } catch (error) {
         console.log({ error });
